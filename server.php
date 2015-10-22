@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>抽奖结果</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="http://www.yiban.cn/school/index/id/5370538">易班</a>
+        </div>
+    </div>
+</nav>
+<h1>抽奖结果</h1>
 <h1 class="h1 result">
 <?php
 /**
