@@ -15,15 +15,9 @@
         </div>
     </div>
 </nav>
-<h1>抽奖结果</h1>
+
 <h1 class="h1 result">
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: skyADMIN
- * Date: 15/10/21
- * Time: 下午8:24
- */
 
 include "connect.php";
 

@@ -12,5 +12,8 @@
     text-align: center;
 }
 .result{
+    position: absolute;
+    top: 20%;
     text-align: center;
+    width: 100%;
 }
