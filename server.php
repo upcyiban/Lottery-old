@@ -36,23 +36,23 @@
             //echo $row['number'];
             $i++;
         }
-        $rand = rand(1, 500);
-        if ($reward[0] > 0 && $rand == 424) {
+        $rand = rand(1, 600);
+        if ($reward[0] > 0 && $rand <= 333 && $rand >=330) {
             $reward[0]--;
             mysql_query("UPDATE reward SET number = '$reward[0]' WHERE id = '1'");
             mysql_query("INSERT INTO message (stuid,message) VALUES ('$stuid', '特等奖')");
             echo "恭喜您获得了特等奖！人品真是好的没话说！请赛后现场进行领取!";
-        } else if ($reward[1] > 0 && $rand < 6) {
+        } else if ($reward[1] > 0 && $rand < 10) {
             $reward[1]--;
             mysql_query("UPDATE reward SET number = '$reward[1]' WHERE id = '2'");
             mysql_query("INSERT INTO message (stuid,message) VALUES ('$stuid', '一等奖')");
             echo "恭喜您获得了一等奖！人品真是好的没话说！请赛后现场进行领取！";
-        } else if ($reward[2] > 0 && $rand < 16) {
+        } else if ($reward[2] > 0 && $rand < 20) {
             $reward[2]--;
             mysql_query("UPDATE reward SET number = '$reward[2]' WHERE id = '3'");
             mysql_query("INSERT INTO message (stuid,message) VALUES ('$stuid', '二等奖')");
             echo "恭喜您获得了二等奖！人品不错哦！请赛后现场进行领取！";
-        } else if ($reward[3] > 0 && $rand < 31) {
+        } else if ($reward[3] > 0 && $rand < 30) {
             $reward[3]--;
             mysql_query("UPDATE reward SET number = '$reward[3]' WHERE id = '4'");
             mysql_query("INSERT INTO message (stuid,message) VALUES ('$stuid', '三等奖')");
