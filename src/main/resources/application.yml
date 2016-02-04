@@ -1,0 +1,33 @@
+spring:
+  resources:
+    chain:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://121.42.201.69:3306/yiban_choujiang
+    username: yiban
+    password: yiban
+    test-while-idle: true
+    validation-query: SELECT 1
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+security:
+  oauth2:
+    client:
+      client-id: 25a71a04b95c9935
+      client-secret: 061131a3b1ed4bfba13ee0aec71124f2
+      access-token-uri: https://openapi.yiban.cn/oauth/access_token
+      user-authorization-uri: https://openapi.yiban.cn/oauth/authorize
+      token-name: oauth_token
+      authentication-scheme: query
+      client-authentication-scheme: form
+      registered-redirect-uri: http://f.yiban.cn/iapp28393
+      pre-established-redirect-uri: http://f.yiban.cn/iapp28393
+      use-current-uri: false
+    resource:
+      user-info-uri: https://openapi.yiban.cn/user/me
