@@ -19,15 +19,15 @@ spring:
 security:
   oauth2:
     client:
-      client-id: 25a71a04b95c9935
-      client-secret: 061131a3b1ed4bfba13ee0aec71124f2
+      client-id: 07f11a3f2773e24e
+      client-secret: 13e9bf919a795dee0f9d438c4dc8928d
       access-token-uri: https://openapi.yiban.cn/oauth/access_token
       user-authorization-uri: https://openapi.yiban.cn/oauth/authorize
       token-name: oauth_token
       authentication-scheme: query
       client-authentication-scheme: form
-      registered-redirect-uri: http://f.yiban.cn/iapp28393
-      pre-established-redirect-uri: http://f.yiban.cn/iapp28393
+      registered-redirect-uri: http://f.yiban.cn/iapp28401
+      pre-established-redirect-uri: http://f.yiban.cn/iapp28401
       use-current-uri: false
     resource:
       user-info-uri: https://openapi.yiban.cn/user/me
