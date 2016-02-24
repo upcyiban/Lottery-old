@@ -24,11 +24,12 @@ public class CreateService {
 
     public String saveCreatorAndLottery(String lotteryName,String lotteryIntro){
         long yibanid = (long) httpSession.getAttribute("userid");
-
+        String yibanname = (String) httpSession.getAttribute("username");
         Creator creator = creatorDao.findByYibanid(yibanid);
         if (creator==null){
             creator = new Creator();
             creator.setYibanid(yibanid);
+            creator.setYibanname(yibanname);
             creatorDao.save(creator);
         }
         LotteryList lotteryList = new LotteryList();
