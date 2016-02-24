@@ -1,4 +1,6 @@
 spring:
+  thymeleaf:
+    mode: LEGACYHTML5
   resources:
     chain:
       enabled: true
