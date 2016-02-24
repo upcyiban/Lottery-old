@@ -20,7 +20,7 @@ public class SaveController {
             return "false";
         }
         CreateService createService = new CreateService();
-        String result = createService.saveCreatorAndLottery(name,);
+        String result = createService.saveCreatorAndLottery(lotteryname,lotteryintro,lotterytimebegin,lotterytimeend,prize1,prize2,prize3,prize4,createtime);
         if (result.equals("success")){
             return "success";
         }else {
