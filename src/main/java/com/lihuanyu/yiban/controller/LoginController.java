@@ -2,12 +2,16 @@ package com.lihuanyu.yiban.controller;
 
 
 import com.google.gson.Gson;
+import com.lihuanyu.yiban.model.LotteryList;
+import com.lihuanyu.yiban.model.LotteryListDao;
 import com.lihuanyu.yiban.session.SessionUser;
 import com.lihuanyu.yiban.util.MCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,14 +21,17 @@ import javax.servlet.http.HttpSession;
 /**
  * Created by skyADMIN on 16/2/5.
  */
-@RestController
+@Controller
 public class LoginController {
 
     @Autowired
     private HttpSession httpSession;
 
+    @Autowired
+    private LotteryListDao lotteryListDao;
+
     @RequestMapping(value = "/",method = RequestMethod.GET,params = "verify_request")
-    public String testString(String verify_request) throws Exception {
+    public String testString(String verify_request, Model model) throws Exception {
         MCrypt mCrypt = new MCrypt();
         String output = new String(mCrypt.decrypt(verify_request));
         Gson gson = new Gson();
@@ -37,7 +44,9 @@ public class LoginController {
         httpSession.setAttribute("usersex",sessionUser.visit_user.usersex);
         httpSession.setAttribute("access_token",sessionUser.visit_oauth.access_token);
         httpSession.setAttribute("token_expires",sessionUser.visit_oauth.token_expires);
-        return output;
+        Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
+        model.addAttribute("lotteryLists",lotteryList);
+        return "index";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)

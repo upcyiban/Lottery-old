@@ -23,7 +23,7 @@ public class LotteryList {
     private int prize1;
     private int prize2;
     private int prize3;
-    private int przie4;
+    private int prize4;
     private Date createtime;
     private int ispass; //是否审核通过.未审核为0,通过为1,不通过为2
 
@@ -100,11 +100,11 @@ public class LotteryList {
     }
 
     public int getPrzie4() {
-        return przie4;
+        return prize4;
     }
 
     public void setPrzie4(int przie4) {
-        this.przie4 = przie4;
+        this.prize4 = przie4;
     }
 
     public Date getCreatetime() {
