@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
  * Created by skyADMIN on 16/2/4.
  */
 public interface LotteryListDao extends CrudRepository<LotteryList,Long> {
+    public LotteryList findById(long id);
 }
