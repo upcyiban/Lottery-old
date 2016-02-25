@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.Random;
 
 /**
  * Created by echao on 2016/2/25.
@@ -27,16 +28,23 @@ public class LotteryCtroller {
     private PrizeListDao prizeListDao;
 
     @RequestMapping("/lottery")
-    public String lottery(long lotteryid, Model model){
-        if(httpSession.getAttribute("userid")==null||httpSession.getAttribute("username")==null) {
+    public String lottery(long lotteryid, Model model) {
+        if (httpSession.getAttribute("userid") == null || httpSession.getAttribute("username") == null) {
             return "redirect:/";
         }
         int yibanid = (int) httpSession.getAttribute("userid");
         String yibanname = (String) httpSession.getAttribute("username");
         LotteryList lotteryList = lotteryListDao.findById(lotteryid);
-        model.addAttribute("lottery",lotteryList);
-        Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid,"未中奖");
-        model.addAttribute("prizeList",prizeList);
+        model.addAttribute("lottery", lotteryList);
+        Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
+        model.addAttribute("prizeList", prizeList);
         return "lottery";
+    }
+
+    @RequestMapping("/lotterycreate")
+    public Random lotteryCreate() {
+        java.util.Random random = new java.util.Random();
+        System.out.println(random.nextInt());
+        return random;
     }
 }

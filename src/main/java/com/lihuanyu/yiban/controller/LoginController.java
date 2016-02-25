@@ -43,6 +43,7 @@ public class LoginController {
         httpSession.setAttribute("token_expires", sessionUser.visit_oauth.token_expires);
         Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
         model.addAttribute("lotteryLists", lotteryList);
+        model.addAttribute("username",sessionUser.visit_user.username);
         return "index";
     }
 
@@ -51,6 +52,8 @@ public class LoginController {
         if (httpSession.getAttribute("userid")!=null){
             Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
             model.addAttribute("lotteryLists", lotteryList);
+            String username = (String) httpSession.getAttribute("username");
+            model.addAttribute("username",username);
             return "index";
         }
         String client_id = "07f11a3f2773e24e";
