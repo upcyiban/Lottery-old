@@ -42,14 +42,10 @@ public class CreateService {
      */
     public String saveCreatorAndLottery(int yibanid, String yibanname, String lotteryname, String lotteryintro, Timestamp lotterytimebegin, Timestamp lotterytimeend, int prize1, int prize2, int prize3, int prize4) {
         try {
-            Creator creator1 = creatorDao.findOne((long) 1);
-            System.out.println(creator1.getYibanid());
-            System.out.println(yibanid);
-            Collection<Creator> creators = creatorDao.findByYibanid(1234);
-            System.out.println(creators.isEmpty());
+            Collection<Creator> creators = creatorDao.findByYibanid(yibanid);
+            //System.out.println(creators.isEmpty());
             Creator creator = null;
             if (creators.isEmpty()){
-                System.out.println("123");
                 creator = new Creator();
                 creator.setYibanid(yibanid);
                 creator.setYibanname(yibanname);

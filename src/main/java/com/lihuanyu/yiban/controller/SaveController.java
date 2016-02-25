@@ -38,7 +38,7 @@ public class SaveController {
         }
         Timestamp timebegin = Timestamp.valueOf(lotterytimebegin.replace("T"," "));
         Timestamp timeend = Timestamp.valueOf(lotterytimeend.replace("T"," "));
-        System.out.println(timebegin);
+        //System.out.println(timebegin);
         int yibanid = (int) httpSession.getAttribute("userid");
         String yibanname = (String) httpSession.getAttribute("username");
         String result = createService.saveCreatorAndLottery(yibanid,yibanname,lotteryname,lotteryintro,timebegin,timeend,prize1,prize2,prize3,prize4);
