@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class StaticController {
+
     @RequestMapping("/about")
     public String showAbout(){
         return "about";
     }
+
     @RequestMapping("/contact")
     public String showContact(){
         return "contact";
     }
+
     @RequestMapping("/create")
     public String creat(){
         return "create";
