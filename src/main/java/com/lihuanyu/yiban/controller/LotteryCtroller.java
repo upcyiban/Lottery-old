@@ -36,7 +36,7 @@ public class LotteryCtroller {
         LotteryList lotteryList = lotteryListDao.findById(lotteryid);
         model.addAttribute("lottery",lotteryList);
         Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid,"未中奖");
-        model.addAttribute("lotterylist",prizeList);
+        model.addAttribute("prizeList",prizeList);
         return "lottery";
     }
 }
