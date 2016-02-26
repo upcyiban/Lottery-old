@@ -24,6 +24,10 @@ public class LotteryList {
     private int prize2;
     private int prize3;
     private int prize4;
+    private int probability1;
+    private int probability2;
+    private int probability3;
+    private int probability4;
     private Date createtime;
     private int ispass; //是否审核通过.未审核为0,通过为1,不通过为2
 
@@ -99,14 +103,6 @@ public class LotteryList {
         this.prize3 = prize3;
     }
 
-    public int getPrzie4() {
-        return prize4;
-    }
-
-    public void setPrzie4(int przie4) {
-        this.prize4 = przie4;
-    }
-
     public Date getCreatetime() {
         return createtime;
     }
@@ -121,5 +117,45 @@ public class LotteryList {
 
     public void setIspass(int ispass) {
         this.ispass = ispass;
+    }
+
+    public int getPrize4() {
+        return prize4;
+    }
+
+    public void setPrize4(int prize4) {
+        this.prize4 = prize4;
+    }
+
+    public int getProbability1() {
+        return probability1;
+    }
+
+    public void setProbability1(int probability1) {
+        this.probability1 = probability1;
+    }
+
+    public int getProbability2() {
+        return probability2;
+    }
+
+    public void setProbability2(int probability2) {
+        this.probability2 = probability2;
+    }
+
+    public int getProbability3() {
+        return probability3;
+    }
+
+    public void setProbability3(int probability3) {
+        this.probability3 = probability3;
+    }
+
+    public int getProbability4() {
+        return probability4;
+    }
+
+    public void setProbability4(int probability4) {
+        this.probability4 = probability4;
     }
 }
