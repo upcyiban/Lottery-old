@@ -25,23 +25,19 @@ public class SaveController {
     private HttpSession httpSession;
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String saveToDatabase(String lotteryname, String lotteryintro, String lotterytimebegin, String lotterytimeend, int prize1, int prize2, int prize3, int prize4){
+    public String saveToDatabase(String lotteryname, String lotteryintro, String lotterytimebegin, String lotterytimeend, int prize1, int prize2, int prize3, int prize4,int probability1,int probability2,int probability3,int probability4){
         if (isEmpty(lotteryname)||isEmpty(lotteryintro)||isEmpty(lotterytimebegin)||isEmpty(lotterytimeend)||isEmpty(prize1)||isEmpty(prize2)||isEmpty(prize3)||isEmpty(prize4)){
             return "false";
         }
-        //System.out.println(lotterytimebegin);
-        if (StringUtils.countMatches(lotterytimebegin, ":") == 1) {
-            lotterytimebegin += ":00";
-        }
-        if (StringUtils.countMatches(lotterytimeend, ":") == 1) {
-            lotterytimeend += ":00";
-        }
-        Timestamp timebegin = Timestamp.valueOf(lotterytimebegin.replace("T"," "));
-        Timestamp timeend = Timestamp.valueOf(lotterytimeend.replace("T"," "));
-        //System.out.println(timebegin);
+
+        Timestamp timebegin = tranFromDatetimeLocal(lotterytimebegin);
+        Timestamp timeend = tranFromDatetimeLocal(lotterytimeend);
+
         int yibanid = (int) httpSession.getAttribute("userid");
         String yibanname = (String) httpSession.getAttribute("username");
+
         String result = createService.saveCreatorAndLottery(yibanid,yibanname,lotteryname,lotteryintro,timebegin,timeend,prize1,prize2,prize3,prize4);
+
         if (result.equals("success")){
             return "success";
         }else {
@@ -60,5 +56,17 @@ public class SaveController {
         }else{
             return true;
         }
+    }
+
+    /**
+     * 转换从HTML表单提交的Datetime-local到JAVA的Timestamp
+     * @param datetimeLocal
+     * @return Timestamp
+     */
+    public Timestamp tranFromDatetimeLocal(String datetimeLocal){
+        if (StringUtils.countMatches(datetimeLocal, ":") == 1) {
+            datetimeLocal += ":00";
+        }
+        return Timestamp.valueOf(datetimeLocal.replace("T"," "));
     }
 }
