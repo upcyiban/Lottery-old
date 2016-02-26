@@ -42,9 +42,7 @@ public class LotteryCtroller {
     }
 
     @RequestMapping("/lotterycreate")
-    public Random lotteryCreate() {
-        java.util.Random random = new java.util.Random();
-        System.out.println(random.nextInt());
-        return random;
+    public void lotteryCreate() {
+
     }
 }

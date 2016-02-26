@@ -29,6 +29,9 @@ public class SaveController {
         if (isEmpty(lotteryname)||isEmpty(lotteryintro)||isEmpty(lotterytimebegin)||isEmpty(lotterytimeend)||isEmpty(prize1)||isEmpty(prize2)||isEmpty(prize3)||isEmpty(prize4)){
             return "false";
         }
+        if(prize1<0||prize2<0||prize3<0||prize4<0){
+            return "false";
+        }
         //System.out.println(lotterytimebegin);
         if (StringUtils.countMatches(lotterytimebegin, ":") == 1) {
             lotterytimebegin += ":00";
