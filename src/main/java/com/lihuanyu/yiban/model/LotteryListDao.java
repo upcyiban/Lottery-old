@@ -7,6 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface LotteryListDao extends CrudRepository<LotteryList,Long> {
     public LotteryList findById(long id);
-    public LotteryList findByYibanid(int yibanid);
     public Iterable<LotteryList> findByIspass(int ispass);
 }

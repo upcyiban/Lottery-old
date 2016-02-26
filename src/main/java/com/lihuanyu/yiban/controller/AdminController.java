@@ -22,6 +22,12 @@ public class AdminController {
         return "loginadmin";
     }
 
+    /**
+     * 管理员登陆,账号密码暂时直接写入,部署后密码从config类获取
+     * @param username
+     * @param password
+     * @return
+     */
     @RequestMapping(value = "/adminlogin",method = RequestMethod.POST)
     public String login(String username, String password, Model model){
         if (username.equals("admin")&&password.equals("sdyb2016")) {
@@ -37,6 +43,13 @@ public class AdminController {
         }
     }
 
+    /**
+     * 管理操作
+     * @param id
+     * @param pass
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/check",method = RequestMethod.POST)
     public String check(long id,String pass,Model model){
         //System.out.println(pass);
