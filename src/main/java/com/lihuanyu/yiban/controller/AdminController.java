@@ -1,5 +1,8 @@
 package com.lihuanyu.yiban.controller;
 
+import com.lihuanyu.yiban.model.LotteryList;
+import com.lihuanyu.yiban.model.LotteryListDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class AdminController {
 
+    @Autowired
+    private LotteryListDao lotteryListDao;
+
     @RequestMapping("/admin")
     public String showLogin(){
         return "loginadmin";
@@ -18,7 +24,9 @@ public class AdminController {
 
     @RequestMapping(value = "/adminlogin",method = RequestMethod.POST)
     public String login(String username, String password, Model model){
-        if (username.equals("admin")&&username.equals("sdyb2016")) {
+        if (username.equals("admin")&&password.equals("sdyb2016")) {
+            Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
+            model.addAttribute("adminLists",lotteryList);
             return "admin";
         }else {
             String result = "出错了!";
@@ -29,5 +37,22 @@ public class AdminController {
         }
     }
 
-    @RequestMapping("/")
+    @RequestMapping(value = "/check",method = RequestMethod.POST)
+    public String check(long id,String pass,Model model){
+        //System.out.println(pass);
+        if (pass.equals("同意")){
+            LotteryList lotteryList = lotteryListDao.findById(id);
+            lotteryList.setIspass(1);
+            lotteryListDao.save(lotteryList);
+        }else if (pass.equals("否决")){
+            LotteryList lotteryList = lotteryListDao.findById(id);
+            lotteryList.setIspass(2);
+            lotteryListDao.save(lotteryList);
+        }else if (pass.equals("删除")){
+            lotteryListDao.delete(id);
+        }
+        Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
+        model.addAttribute("adminLists",lotteryList);
+        return "admin";
+    }
 }
