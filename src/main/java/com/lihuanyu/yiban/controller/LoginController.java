@@ -41,7 +41,7 @@ public class LoginController {
         httpSession.setAttribute("usersex", sessionUser.visit_user.usersex);
         httpSession.setAttribute("access_token", sessionUser.visit_oauth.access_token);
         httpSession.setAttribute("token_expires", sessionUser.visit_oauth.token_expires);
-        Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
+        Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
         model.addAttribute("lotteryLists", lotteryList);
         model.addAttribute("username",sessionUser.visit_user.username);
         return "index";
@@ -50,7 +50,7 @@ public class LoginController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String testOauth(Model model) {
         if (httpSession.getAttribute("userid")!=null){
-            Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
+            Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
             model.addAttribute("lotteryLists", lotteryList);
             String username = (String) httpSession.getAttribute("username");
             model.addAttribute("username",username);

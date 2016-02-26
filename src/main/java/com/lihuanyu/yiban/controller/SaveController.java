@@ -4,6 +4,7 @@ import com.lihuanyu.yiban.services.CreateService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import java.sql.Timestamp;
 /**
  * Created by echao on 2016/2/24.
  */
-@RestController
+@Controller
 public class SaveController {
 
     @Autowired
@@ -25,30 +26,39 @@ public class SaveController {
     private HttpSession httpSession;
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
-    public String saveToDatabase(String lotteryname, String lotteryintro, String lotterytimebegin, String lotterytimeend, int prize1, int prize2, int prize3, int prize4){
-        if (isEmpty(lotteryname)||isEmpty(lotteryintro)||isEmpty(lotterytimebegin)||isEmpty(lotterytimeend)||isEmpty(prize1)||isEmpty(prize2)||isEmpty(prize3)||isEmpty(prize4)){
-            return "false";
+    public String saveToDatabase(Model model,String lotteryname, String lotteryintro, String lotterytimebegin, String lotterytimeend, int prize1, int prize2, int prize3, int prize4, int probability1, int probability2, int probability3, int probability4){
+        if (isEmpty(lotteryname)||isEmpty(lotteryintro)||isEmpty(lotterytimebegin)||isEmpty(lotterytimeend)||isEmpty(prize1)||isEmpty(prize2)||isEmpty(prize3)||isEmpty(prize4)||isEmpty(probability1)||isEmpty(probability2)||isEmpty(probability3)||isEmpty(probability4)){
+            String result = "出错了!";
+            String word = "请检查是否有漏填项";
+            model.addAttribute("result",result);
+            model.addAttribute("word",word);
+            return "createresult";
         }
+
         if(prize1<0||prize2<0||prize3<0||prize4<0){
             return "false";
         }
-        //System.out.println(lotterytimebegin);
-        if (StringUtils.countMatches(lotterytimebegin, ":") == 1) {
-            lotterytimebegin += ":00";
-        }
-        if (StringUtils.countMatches(lotterytimeend, ":") == 1) {
-            lotterytimeend += ":00";
-        }
-        Timestamp timebegin = Timestamp.valueOf(lotterytimebegin.replace("T"," "));
-        Timestamp timeend = Timestamp.valueOf(lotterytimeend.replace("T"," "));
-        //System.out.println(timebegin);
+
+        Timestamp timebegin = tranFromDatetimeLocal(lotterytimebegin);
+        Timestamp timeend = tranFromDatetimeLocal(lotterytimeend);
+
         int yibanid = (int) httpSession.getAttribute("userid");
         String yibanname = (String) httpSession.getAttribute("username");
-        String result = createService.saveCreatorAndLottery(yibanid,yibanname,lotteryname,lotteryintro,timebegin,timeend,prize1,prize2,prize3,prize4);
+
+        String result = createService.saveCreatorAndLottery(yibanid,yibanname,lotteryname,lotteryintro,timebegin,timeend,prize1,prize2,prize3,prize4,probability1,probability2,probability3,probability4);
+
         if (result.equals("success")){
-            return "success";
+            String pageresult = "成功了!";
+            String word = "创建成功,等待管理员审核,急用可联系石大易班发展中心成员";
+            model.addAttribute("result",pageresult);
+            model.addAttribute("word",word);
+            return "createresult";
         }else {
-            return "false";
+            String pageresult = "失败了";
+            String word = "未知原因失败,再次尝试也不行请反馈到石大易班发展中心,等技术人员检查.";
+            model.addAttribute("result",pageresult);
+            model.addAttribute("word",word);
+            return "createresult";
         }
     }
 
@@ -63,5 +73,17 @@ public class SaveController {
         }else{
             return true;
         }
+    }
+
+    /**
+     * 转换从HTML表单提交的Datetime-local到JAVA的Timestamp
+     * @param datetimeLocal
+     * @return Timestamp
+     */
+    public Timestamp tranFromDatetimeLocal(String datetimeLocal){
+        if (StringUtils.countMatches(datetimeLocal, ":") == 1) {
+            datetimeLocal += ":00";
+        }
+        return Timestamp.valueOf(datetimeLocal.replace("T"," "));
     }
 }

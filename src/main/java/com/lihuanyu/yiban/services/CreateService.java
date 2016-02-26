@@ -40,7 +40,7 @@ public class CreateService {
      * @param prize4
      * @return
      */
-    public String saveCreatorAndLottery(int yibanid, String yibanname, String lotteryname, String lotteryintro, Timestamp lotterytimebegin, Timestamp lotterytimeend, int prize1, int prize2, int prize3, int prize4) {
+    public String saveCreatorAndLottery(int yibanid, String yibanname, String lotteryname, String lotteryintro, Timestamp lotterytimebegin, Timestamp lotterytimeend, int prize1, int prize2, int prize3, int prize4,int probability1,int probability2,int probability3,int probability4) {
         try {
             Collection<Creator> creators = creatorDao.findByYibanid(yibanid);
             //System.out.println(creators.isEmpty());
@@ -62,8 +62,12 @@ public class CreateService {
             lotteryList.setPrize1(prize1);
             lotteryList.setPrize2(prize2);
             lotteryList.setPrize3(prize3);
-            lotteryList.setPrzie4(prize4);
+            lotteryList.setPrize4(prize4);
             lotteryList.setCreatetime(new Date(System.currentTimeMillis()));
+            lotteryList.setProbability1(probability1);
+            lotteryList.setProbability2(probability2);
+            lotteryList.setProbability3(probability3);
+            lotteryList.setProbability4(probability4);
             lotteryList.setIspass(0);
             lotteryListDao.save(lotteryList);
         } catch (Exception ex) {
