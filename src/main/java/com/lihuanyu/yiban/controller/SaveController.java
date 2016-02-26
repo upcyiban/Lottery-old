@@ -16,7 +16,7 @@ import java.sql.Timestamp;
 /**
  * Created by echao on 2016/2/24.
  */
-@RestController
+@Controller
 public class SaveController {
 
     @Autowired
