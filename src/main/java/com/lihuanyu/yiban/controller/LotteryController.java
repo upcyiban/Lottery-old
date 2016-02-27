@@ -58,6 +58,7 @@ public class LotteryController {
             lotteryService.dealLottery((int) id,result);
             model.addAttribute("result","中奖啦！");
             model.addAttribute("word","恭喜您获得"+result);
+            model.addAttribute("lotteryid",id);
             return "lotteryresult";
         }else {
             model.addAttribute("title","出错了!");
