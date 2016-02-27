@@ -20,6 +20,12 @@ public class LotteryService {
     @Autowired
     private PrizeListDao prizeListDao;
 
+    @Autowired
+    private LotteryListDao lotteryListDao;
+
+    @Autowired
+    private LotteryList lotteryList;
+
     public boolean canLottery(Timestamp lotterytimebegin, Timestamp lotterytimeend, int yibanid, int lotteryid) {
         Timestamp date = new Timestamp(System.currentTimeMillis());
         if (date.after(lotterytimebegin) && date.before(lotterytimeend)) {
@@ -40,10 +46,13 @@ public class LotteryService {
             if (p1 != 0){
                 return "一等奖";
             }else if (p2 != 0){
+                p2--;
                 return "二等奖";
             }else if(p3 != 0){
+                p3--;
                 return "三等奖";
             }else if(p4!=0){
+                p4--;
                 return "四等奖";
             }
         }else if (rand < pb2){
@@ -75,6 +84,24 @@ public class LotteryService {
         prizeList.setYibanid(yibanid);
         prizeList.setLotteryid(lotteryid);
         prizeListDao.save(prizeList);
+    }
+
+    public void dealLottery(int lotteryid,String prizeresult){
+        LotteryList lotteryList = lotteryListDao.findByLotteryid(lotteryid);
+        if(prizeresult.equals("一等奖")){
+            int p1 = lotteryList.getPrize1()-1;
+            lotteryList.setPrize1(p1);
+        }else if(prizeresult.equals("二等奖")){
+            int p2 = lotteryList.getPrize2()-1;
+            lotteryList.setPrize2(p2);
+        }else if(prizeresult.equals("三等奖")){
+            int p3 = lotteryList.getPrize3()-1;
+            lotteryList.setPrize3(p3);
+        }else if(prizeresult.equals("四等奖")){
+            int p4 = lotteryList.getPrize4()-1;
+            lotteryList.setPrize4(p4);
+        }
+        lotteryListDao.save(lotteryList);
     }
 }
 
