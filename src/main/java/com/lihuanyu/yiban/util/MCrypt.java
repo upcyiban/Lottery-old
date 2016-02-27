@@ -3,6 +3,8 @@
  */
 package com.lihuanyu.yiban.util;
 
+import com.lihuanyu.yiban.config.CustomConfig;
+
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
@@ -13,12 +15,12 @@ public class MCrypt {
 
     static char[] HEX_CHARS = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 
-    private String iv = "07f11a3f2773e24e";//Dummy iv (CHANGE IT!)
+    private String iv = CustomConfig.client_id;//Dummy iv (CHANGE IT!)
     private IvParameterSpec ivspec;
     private SecretKeySpec keyspec;
     private Cipher cipher;
 
-    private String SecretKey = "13e9bf919a795dee0f9d438c4dc8928d";//Dummy secretKey (CHANGE IT!)
+    private String SecretKey = CustomConfig.AppSecret;//Dummy secretKey (CHANGE IT!)
 
     public MCrypt()
     {
