@@ -1,5 +1,7 @@
 package com.lihuanyu.yiban.controller;
 
+import com.lihuanyu.yiban.model.Creator;
+import com.lihuanyu.yiban.model.CreatorDao;
 import com.lihuanyu.yiban.model.LotteryList;
 import com.lihuanyu.yiban.model.LotteryListDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class AdminController {
 
     @Autowired
     private LotteryListDao lotteryListDao;
+
+    @Autowired
+    private CreatorDao creatorDao;
 
     @RequestMapping("/admin")
     public String showLogin(){
@@ -41,6 +46,25 @@ public class AdminController {
             model.addAttribute("word",word);
             return "message";
         }
+    }
+
+    @RequestMapping("/detail")
+    public String showDetail(int lotteryid,Model model){
+        LotteryList lotteryList = lotteryListDao.findById(lotteryid);
+        model.addAttribute("lotteryList",lotteryList);
+        Creator creator = creatorDao.findOne(lotteryList.getCreatorid());
+        model.addAttribute("username",creator.getYibanname());
+        model.addAttribute("userid",creator.getYibanid());
+        String state = null;
+        if (lotteryList.getIspass() == 0){
+            state = "未审核";
+        }else if (lotteryList.getIspass() == 1){
+            state = "已通过";
+        }else if (lotteryList.getIspass() == 2){
+            state = "未通过";
+        }
+        model.addAttribute("state",state);
+        return "detail";
     }
 
     /**
