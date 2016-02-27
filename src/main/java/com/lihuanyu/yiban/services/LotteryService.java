@@ -1,11 +1,13 @@
 package com.lihuanyu.yiban.services;
 
+import com.lihuanyu.yiban.model.LotteryList;
 import com.lihuanyu.yiban.model.LotteryListDao;
 import com.lihuanyu.yiban.model.PrizeList;
 import com.lihuanyu.yiban.model.PrizeListDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Random;
 
@@ -18,36 +20,61 @@ public class LotteryService {
     @Autowired
     private PrizeListDao prizeListDao;
 
-
-    public int lottery() {
-        Random random = new Random();
-        int a = random.nextInt(1000);
-        return a;
+    public boolean canLottery(Timestamp lotterytimebegin, Timestamp lotterytimeend, int yibanid, int lotteryid) {
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+        if (date.after(lotterytimebegin) && date.before(lotterytimeend)) {
+            Collection<PrizeList> result = prizeListDao.findByLotteryidAndYibanid(lotteryid, yibanid);
+            if (result.isEmpty()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
-    public String Savelotteryer(int yibanid, int lotteryid, String yibanname, int probability1, int probability2, int probability3, int probability4) {
-        if (yibanname == null) {
-            return "false";
+    public String lottery(int p1,int p2,int p3,int p4,int pb1,int pb2,int pb3,int pb4) {
+        Random random = new Random();
+        int rand = random.nextInt(1000);
+        if (rand<pb1){
+            if (p1 != 0){
+                return "一等奖";
+            }else if (p2 != 0){
+                return "二等奖";
+            }else if(p3 != 0){
+                return "三等奖";
+            }else if(p4!=0){
+                return "四等奖";
+            }
+        }else if (rand < pb2){
+            if (p2 != 0){
+                return "二等奖";
+            }else if (p3 != 0){
+                return "三等奖";
+            }else if (p4 != 0){
+                return "四等奖";
+            }
+        }else if(rand<pb3){
+            if(p3!=0){
+                return "三等奖";
+            }else if(p4!=0){
+                return "四等奖";
+            }
+        }else if(rand<pb4){
+            if(p4!=0){
+                return "四等奖";
+            }
         }
-        PrizeList prizeList = new PrizeList();
-        prizeList.setLotteryid(lotteryid);
-        prizeList.setYibanid(yibanid);
-        prizeList.setYibanname(yibanname);//向PrizeList中插入id、name
-        int random = lottery();
-        if (random >= 0 && random < probability1) {
-            prizeList.setPrize("一等奖");
-        } else if (random >= probability1 && random < probability1 + probability2) {
-            prizeList.setPrize("二等奖");
-        } else if (random >= probability1 + probability2 && random < probability1 + probability2 + probability3) {
-            prizeList.setPrize("三等奖");
-        } else if (random >= probability1 + probability2 + probability3 && random < probability1 + probability2 + probability3 + probability4) {
-            prizeList.setPrize("四等奖");
-        } else {
-            prizeList.setPrize("未中奖");
-        }
-        prizeListDao.save(prizeList);
+        return "未中奖";
+    }
 
-        return "secesses";
+    public void saveLottery(int yibanid,int lotteryid,String yibanname,String prize){
+        PrizeList prizeList = new PrizeList();
+        prizeList.setPrize(prize);
+        prizeList.setYibanname(yibanname);
+        prizeList.setYibanid(yibanid);
+        prizeList.setLotteryid(lotteryid);
+        prizeListDao.save(prizeList);
     }
 }
 

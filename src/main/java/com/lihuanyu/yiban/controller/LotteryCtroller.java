@@ -48,12 +48,16 @@ public class LotteryCtroller {
     @RequestMapping("/lotteryresult")
     public String  lotteryResult(long id,Model model) {
         int yibanid = (int) httpSession.getAttribute("userid");
+        String yibanname = (String) httpSession.getAttribute("username");
         LotteryList lotteryList = lotteryListDao.findById(id);
-        if (lotteryService.canLottery(lotteryList.getLotterytimebegin(),lotteryList.getLotterytimeend(),yibanid,id)){
+        if (lotteryService.canLottery(lotteryList.getLotterytimebegin(),lotteryList.getLotterytimeend(),yibanid, (int) id)){
             //next
-            String result = lotteryService.lottery();
-            lotteryService.saveLottery();
+            String result = lotteryService.lottery(lotteryList.getPrize1(),lotteryList.getPrize2(),lotteryList.getPrize3(),lotteryList.getPrize4(),lotteryList.getProbability1(),lotteryList.getProbability2(),lotteryList.getProbability3(),lotteryList.getProbability4());
 
+            lotteryService.saveLottery(yibanid, (int) id,yibanname,result);
+            model.addAttribute("result","中奖啦！");
+            model.addAttribute("word","恭喜您获得"+result);
+            return "lotteryresult";
         }else {
             model.addAttribute("title","出错了!");
             model.addAttribute("word","不具备抽奖资格(时间不对或已抽过奖)");
