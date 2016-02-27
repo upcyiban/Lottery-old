@@ -56,9 +56,14 @@ public class LotteryController {
 
             lotteryService.saveLottery(yibanid, (int) id,yibanname,result);
             lotteryService.dealLottery((int) id,result);
-            model.addAttribute("result","中奖啦！");
-            model.addAttribute("word","恭喜您获得"+result);
-            model.addAttribute("lotteryid",id);
+            if (result.equals("未中奖")){
+                model.addAttribute("result","可惜没中奖");
+                model.addAttribute("word","还是欢迎您关注参加我们的活动~");
+            }else {
+                model.addAttribute("result", "中奖啦！");
+                model.addAttribute("word", "恭喜您获得" + result);
+            }
+            model.addAttribute("lotteryid", id);
             return "lotteryresult";
         }else {
             model.addAttribute("title","出错了!");
