@@ -60,7 +60,7 @@ public class LotteryCtroller {
             return "lotteryresult";
         }else {
             model.addAttribute("title","出错了!");
-            model.addAttribute("word","不具备抽奖资格(时间不对或已抽过奖)");
+            model.addAttribute("result","不具备抽奖资格(时间不对或已抽过奖)");
             return "message";
         }
     }
