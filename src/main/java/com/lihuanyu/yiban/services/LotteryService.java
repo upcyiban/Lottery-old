@@ -23,9 +23,6 @@ public class LotteryService {
     @Autowired
     private LotteryListDao lotteryListDao;
 
-    @Autowired
-    private LotteryList lotteryList;
-
     public boolean canLottery(Timestamp lotterytimebegin, Timestamp lotterytimeend, int yibanid, int lotteryid) {
         Timestamp date = new Timestamp(System.currentTimeMillis());
         if (date.after(lotterytimebegin) && date.before(lotterytimeend)) {
@@ -87,7 +84,7 @@ public class LotteryService {
     }
 
     public void dealLottery(int lotteryid,String prizeresult){
-        LotteryList lotteryList = lotteryListDao.findByLotteryid(lotteryid);
+        LotteryList lotteryList = lotteryListDao.findById(lotteryid);
         if(prizeresult.equals("一等奖")){
             int p1 = lotteryList.getPrize1()-1;
             lotteryList.setPrize1(p1);

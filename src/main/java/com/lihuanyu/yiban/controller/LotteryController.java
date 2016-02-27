@@ -17,7 +17,7 @@ import java.util.Random;
  * Created by echao on 2016/2/25.
  */
 @Controller
-public class LotteryCtroller {
+public class LotteryController {
 
     @Autowired
     private HttpSession httpSession;
@@ -30,9 +30,6 @@ public class LotteryCtroller {
 
     @Autowired
     private LotteryService lotteryService;
-
-    @Autowired
-    private PrizeList prizeList;
 
     @RequestMapping("/lottery")
     public String lottery(long lotteryid, Model model) {
@@ -58,7 +55,7 @@ public class LotteryCtroller {
             String result = lotteryService.lottery(lotteryList.getPrize1(),lotteryList.getPrize2(),lotteryList.getPrize3(),lotteryList.getPrize4(),lotteryList.getProbability1(),lotteryList.getProbability2(),lotteryList.getProbability3(),lotteryList.getProbability4());
 
             lotteryService.saveLottery(yibanid, (int) id,yibanname,result);
-            lotteryService.dealLottery(prizeList.getLotteryid(),prizeList.getPrize());
+            lotteryService.dealLottery((int) id,result);
             model.addAttribute("result","中奖啦！");
             model.addAttribute("word","恭喜您获得"+result);
             return "lotteryresult";
