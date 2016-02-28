@@ -1,6 +1,7 @@
 package com.lihuanyu.yiban.controller;
 
-import com.lihuanyu.yiban.config.CustomConfig;
+import com.lihuanyu.yiban.config.DevConfig;
+import com.lihuanyu.yiban.config.DevConfig;
 import com.lihuanyu.yiban.model.Creator;
 import com.lihuanyu.yiban.model.CreatorDao;
 import com.lihuanyu.yiban.model.LotteryList;
@@ -36,7 +37,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/adminlogin",method = RequestMethod.POST)
     public String login(String username, String password, Model model){
-        if (username.equals(CustomConfig.adminUsername)&&password.equals(CustomConfig.adminPassword)) {
+        if (username.equals(DevConfig.adminUsername)&&password.equals(DevConfig.adminPassword)) {
             Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
             model.addAttribute("adminLists",lotteryList);
             return "admin";

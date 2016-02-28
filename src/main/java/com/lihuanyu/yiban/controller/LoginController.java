@@ -2,7 +2,8 @@ package com.lihuanyu.yiban.controller;
 
 
 import com.google.gson.Gson;
-import com.lihuanyu.yiban.config.CustomConfig;
+import com.lihuanyu.yiban.config.DevConfig;
+import com.lihuanyu.yiban.config.DevConfig;
 import com.lihuanyu.yiban.model.LotteryList;
 import com.lihuanyu.yiban.model.LotteryListDao;
 import com.lihuanyu.yiban.session.SessionUser;
@@ -57,6 +58,6 @@ public class LoginController {
             model.addAttribute("username",username);
             return "index";
         }
-        return "redirect:https://openapi.yiban.cn/oauth/authorize?client_id=" + CustomConfig.client_id + "&redirect_uri=" + CustomConfig.redirect_uri;
+        return "redirect:https://openapi.yiban.cn/oauth/authorize?client_id=" + DevConfig.client_id + "&redirect_uri=" + DevConfig.redirect_uri;
     }
 }
