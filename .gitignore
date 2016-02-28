@@ -26,5 +26,5 @@ hs_err_pid*
 .idea
 .mvn
 choujiang.iml
-src/main/java/com/lihuanyu/yiban/config
+src/main/java/com/lihuanyu/yiban/config/CustomConfig.java
 src/main/resources/application-production.yml
