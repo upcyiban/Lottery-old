@@ -1,0 +1,106 @@
+<!doctype html>
+<html class="no-js" lang="" xmlns="http://www.w3.org/1/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <title>石大易班抽奖</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+    <!-- build:js scripts/vendor/modernizr.js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
+
+  </head>
+  <body>
+    <!--[if lt IE 10]>
+      <p class="browsehappy">你正在使用一个<strong>过时的</strong>浏览器. 请到<a href="http://browsehappy.com/">这里</a>去升级你的浏览器以获得更佳的体验.</p>
+    <![endif]-->
+
+
+    <div class="container">
+
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">石大易班在线抽奖</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="about">About</a></li>
+              <li><a href="contact">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <div class="jumbotron">
+        <h1>创建新的抽奖</h1>
+        <p class="lead"><span th:text="${username}">用户名</span>,欢迎使用石大易班提供的在线抽奖工具,为你的活动增添人气.</p>
+        <p><a class="btn btn-lg btn-success" href="create.html">创建 <span class="glyphicon glyphicon-ok"></span></a></p>
+      </div>
+
+      <div class="row marketing">
+        <div th:each="lotteryList:${lotteryLists}">
+          <h4><a th:text="${lotteryList.lotteryname}" th:href="@{/lottery(lotteryid=${lotteryList.id})}">Title</a></h4>
+          <p th:text="${lotteryList.lotteryintro}">这是一段测试文字,如果你看到了它,说明程序出错了.</p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p><span class="glyphicon glyphicon-heart"></span> from the UPCyiban - skyADMIN</p>
+      </div>
+    </div>
+
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+
+    <!-- build:js(.) scripts/plugins.js -->
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
+    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
+    <!-- endbuild -->
+
+
+    <!-- build:js(.tmp) scripts/main.js -->
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+
+    <!-- Baidu Analytics-->
+    <script>
+
+    </script>
+  </body>
+</html>
