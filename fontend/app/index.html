@@ -61,7 +61,7 @@
       <div class="row marketing">
         <div th:each="lotteryList:${lotteryLists}">
           <h4><a th:text="${lotteryList.lotteryname}" th:href="@{/lottery(lotteryid=${lotteryList.id})}">Title</a></h4>
-          <p th:text="${lotteryList.lotteryintro}">这是一段测试文字,如果你看到了它,说明程序出错了.</p>
+          <p th:text="${#strings.length(lotteryList.lotteryintro)}">这是一段测试文字,如果你看到了它,说明程序出错了.</p>
         </div>
       </div>
 
