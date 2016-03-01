@@ -60,8 +60,8 @@
 
       <div class="row marketing">
         <div th:each="lotteryList:${lotteryLists}">
-          <h4><a th:text="${lotteryList.lotteryname}" th:href="@{/lottery(lotteryid=${lotteryList.id})}">Title</a></h4>
-          <p th:text="${#strings.length(lotteryList.lotteryintro)}">这是一段测试文字,如果你看到了它,说明程序出错了.</p>
+          <h3><a th:text="${lotteryList.lotteryname}" th:href="@{/lottery(lotteryid=${lotteryList.id})}">Title</a></h3>
+          <p style="font-size: medium" th:text="${#strings.abbreviate(lotteryList.lotteryintro,140)}">一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</p>
         </div>
       </div>
 
