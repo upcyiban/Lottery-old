@@ -3,7 +3,6 @@ package com.lihuanyu.yiban.controller;
 
 import com.google.gson.Gson;
 import com.lihuanyu.yiban.config.DevConfig;
-import com.lihuanyu.yiban.config.DevConfig;
 import com.lihuanyu.yiban.model.LotteryList;
 import com.lihuanyu.yiban.model.LotteryListDao;
 import com.lihuanyu.yiban.session.SessionUser;

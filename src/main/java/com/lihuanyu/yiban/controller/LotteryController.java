@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.Random;
 
 /**
@@ -42,6 +43,8 @@ public class LotteryController {
         model.addAttribute("lottery", lotteryList);
         Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
         model.addAttribute("prizeList", prizeList);
+        model.addAttribute("time1",lotteryList.getLotterytimebegin());
+        model.addAttribute("time2",lotteryList.getLotterytimeend());
         return "lottery";
     }
 

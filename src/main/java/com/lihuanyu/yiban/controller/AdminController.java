@@ -1,7 +1,6 @@
 package com.lihuanyu.yiban.controller;
 
 import com.lihuanyu.yiban.config.DevConfig;
-import com.lihuanyu.yiban.config.DevConfig;
 import com.lihuanyu.yiban.model.Creator;
 import com.lihuanyu.yiban.model.CreatorDao;
 import com.lihuanyu.yiban.model.LotteryList;
