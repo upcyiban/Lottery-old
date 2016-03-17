@@ -56,6 +56,7 @@
     <h1>出错了</h1>
     <br/>
     <p class="lead">程序出错了,一定是你没有按规定填写东西造成的吧~?退回去试试?</p>
+    <p class="lead" th:text="${reason}">报错原因</p>
     <a class="btn btn-danger" href="javascript:history.go(-1);">返回</a>
   </div>
 
