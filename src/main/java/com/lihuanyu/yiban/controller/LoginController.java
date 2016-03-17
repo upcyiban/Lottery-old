@@ -32,9 +32,31 @@ public class LoginController {
     public String testString(String verify_request, Model model) throws Exception {
         MCrypt mCrypt = new MCrypt();
         String output = new String(mCrypt.decrypt(verify_request));
+        saveSession(output);
+        Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
+        model.addAttribute("lotteryLists", lotteryList);
+        model.addAttribute("username", httpSession.getAttribute("username"));
+        return "index";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String testOauth(Model model) {
+        if (httpSession.getAttribute("userid") != null) {
+            Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
+            model.addAttribute("lotteryLists", lotteryList);
+            String username = (String) httpSession.getAttribute("username");
+            model.addAttribute("username", username);
+            return "index";
+        }
+        return "redirect:https://openapi.yiban.cn/oauth/authorize?client_id=" + DevConfig.client_id + "&redirect_uri=" + DevConfig.redirect_uri;
+    }
+
+    /*
+    向session存入数据
+     */
+    public String saveSession(String s) {
         Gson gson = new Gson();
-        SessionUser sessionUser = new SessionUser();
-        sessionUser = gson.fromJson(output, SessionUser.class);
+        SessionUser sessionUser = gson.fromJson(s, SessionUser.class);
         httpSession.setAttribute("visit_time", sessionUser.visit_time);
         httpSession.setAttribute("userid", sessionUser.visit_user.userid);
         httpSession.setAttribute("username", sessionUser.visit_user.username);
@@ -42,21 +64,6 @@ public class LoginController {
         httpSession.setAttribute("usersex", sessionUser.visit_user.usersex);
         httpSession.setAttribute("access_token", sessionUser.visit_oauth.access_token);
         httpSession.setAttribute("token_expires", sessionUser.visit_oauth.token_expires);
-        Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
-        model.addAttribute("lotteryLists", lotteryList);
-        model.addAttribute("username",sessionUser.visit_user.username);
-        return "index";
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String testOauth(Model model) {
-        if (httpSession.getAttribute("userid")!=null){
-            Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
-            model.addAttribute("lotteryLists", lotteryList);
-            String username = (String) httpSession.getAttribute("username");
-            model.addAttribute("username",username);
-            return "index";
-        }
-        return "redirect:https://openapi.yiban.cn/oauth/authorize?client_id=" + DevConfig.client_id + "&redirect_uri=" + DevConfig.redirect_uri;
+        return "success";
     }
 }

@@ -36,7 +36,9 @@ public class SaveController {
         }
 
         if(prize1<0||prize2<0||prize3<0||prize4<0){
+
             return "false";
+
         }
 
         Timestamp timebegin = tranFromDatetimeLocal(lotterytimebegin);
