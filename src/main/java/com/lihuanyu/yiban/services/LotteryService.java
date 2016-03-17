@@ -53,7 +53,7 @@ public class LotteryService {
             }
         }
         return "未中奖";
-    }
+    }//化简代码
 
     public void saveLottery(int yibanid,int lotteryid,String yibanname,String prize) {
         try {

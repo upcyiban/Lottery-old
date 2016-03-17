@@ -37,8 +37,6 @@ public class LotteryController {
         if (httpSession.getAttribute("userid") == null || httpSession.getAttribute("username") == null) {
             return "redirect:/";
         }
-        int yibanid = (int) httpSession.getAttribute("userid");
-        String yibanname = (String) httpSession.getAttribute("username");
         LotteryList lotteryList = lotteryListDao.findById(lotteryid);
         model.addAttribute("lottery", lotteryList);
         Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
@@ -54,8 +52,9 @@ public class LotteryController {
         String yibanname = (String) httpSession.getAttribute("username");
         LotteryList lotteryList = lotteryListDao.findById(id);
         if (lotteryService.canLottery(lotteryList.getLotterytimebegin(),lotteryList.getLotterytimeend(),yibanid, (int) id)){
-            //next
+            //判断是否符合抽奖条件
             String result = lotteryService.lottery(lotteryList.getPrize1(),lotteryList.getPrize2(),lotteryList.getPrize3(),lotteryList.getPrize4(),lotteryList.getProbability1(),lotteryList.getProbability2(),lotteryList.getProbability3(),lotteryList.getProbability4());
+            //如果符合，进行抽奖
 
             lotteryService.saveLottery(yibanid, (int) id,yibanname,result);
             lotteryService.dealLottery((int) id,result);
