@@ -1,5 +1,6 @@
 package com.lihuanyu.yiban.services;
 
+import com.lihuanyu.yiban.config.DevConfig;
 import com.lihuanyu.yiban.model.Creator;
 import com.lihuanyu.yiban.model.CreatorDao;
 import com.lihuanyu.yiban.model.LotteryList;
@@ -19,6 +20,20 @@ public class AdminService {
 
     @Autowired
     private CreatorDao creatorDao;
+
+    public String loginAdmin(String username, String password, Model model){
+        if (username.equals(DevConfig.adminUsername)&&password.equals(DevConfig.adminPassword)) {
+            Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
+            model.addAttribute("adminLists",lotteryList);
+            return "admin";
+        }else {
+            String result = "出错了!";
+            String word = "账号或密码有误!";
+            model.addAttribute("title",result);
+            model.addAttribute("result",word);
+            return "message";
+        }
+    }
 
     public String showAdminTable(int lotteryid, Model model){
         LotteryList lotteryList = lotteryListDao.findById(lotteryid);

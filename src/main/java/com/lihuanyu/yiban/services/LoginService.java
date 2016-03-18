@@ -21,17 +21,5 @@ public class LoginService {
     @Autowired
     private HttpSession httpSession;
 
-    public String loginAdmin(String username, String password, Model model){
-        if (username.equals(DevConfig.adminUsername)&&password.equals(DevConfig.adminPassword)) {
-            Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
-            model.addAttribute("adminLists",lotteryList);
-            return "admin";
-        }else {
-            String result = "出错了!";
-            String word = "账号或密码有误!";
-            model.addAttribute("title",result);
-            model.addAttribute("result",word);
-            return "message";
-        }
-    }
+
 }

@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminController {
 
     @Autowired
-    private LoginService loginService;
-
-    @Autowired
     private AdminService adminService;
 
     @RequestMapping("/admin")
@@ -32,7 +29,7 @@ public class AdminController {
 
     @RequestMapping(value = "/adminlogin",method = RequestMethod.POST)
     public String login(String username, String password, Model model){
-        return loginService.loginAdmin(username,password,model);
+        return adminService.loginAdmin(username,password,model);
     }
 
     @RequestMapping("/detail")
