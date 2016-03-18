@@ -5,6 +5,7 @@ import com.lihuanyu.yiban.model.Creator;
 import com.lihuanyu.yiban.model.CreatorDao;
 import com.lihuanyu.yiban.model.LotteryList;
 import com.lihuanyu.yiban.model.LotteryListDao;
+import com.lihuanyu.yiban.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class AdminController {
+
+    @Autowired
+    private LoginService loginService;
 
     @Autowired
     private LotteryListDao lotteryListDao;
@@ -36,17 +40,7 @@ public class AdminController {
      */
     @RequestMapping(value = "/adminlogin",method = RequestMethod.POST)
     public String login(String username, String password, Model model){
-        if (username.equals(DevConfig.adminUsername)&&password.equals(DevConfig.adminPassword)) {
-            Iterable<LotteryList> lotteryList = lotteryListDao.findAll();
-            model.addAttribute("adminLists",lotteryList);
-            return "admin";
-        }else {
-            String result = "出错了!";
-            String word = "账号或密码有误!";
-            model.addAttribute("title",result);
-            model.addAttribute("word",word);
-            return "message";
-        }
+        return loginService.loginAdmin(username,password,model);
     }
 
     @RequestMapping("/detail")
@@ -77,7 +71,6 @@ public class AdminController {
      */
     @RequestMapping(value = "/check",method = RequestMethod.POST)
     public String check(long id,String pass,Model model){
-        //System.out.println(pass);
         if (pass.equals("同意")){
             LotteryList lotteryList = lotteryListDao.findById(id);
             lotteryList.setIspass(1);
