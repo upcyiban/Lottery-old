@@ -35,6 +35,7 @@ public class LotteryController {
     @RequestMapping("/lottery")
     public String lottery(long lotteryid, Model model) {
         if (httpSession.getAttribute("userid") == null || httpSession.getAttribute("username") == null) {
+            httpSession.setAttribute("lotteryid",lotteryid);
             return "redirect:/";
         }
         LotteryList lotteryList = lotteryListDao.findById(lotteryid);
