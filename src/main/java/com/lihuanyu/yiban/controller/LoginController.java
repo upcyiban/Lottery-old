@@ -25,15 +25,6 @@ import javax.servlet.http.HttpSession;
 public class LoginController {
 
     @Autowired
-    private UserLoginService userLoginService;
-
-    @Autowired
-    private HttpSession httpSession;
-
-    @Autowired
-    private LotteryListDao lotteryListDao;
-
-    @Autowired
     private LonginServe longinServe;
 
     @RequestMapping(value = "/", method = RequestMethod.GET, params = "verify_request")

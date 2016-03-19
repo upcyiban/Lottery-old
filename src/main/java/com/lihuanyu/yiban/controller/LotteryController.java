@@ -21,15 +21,6 @@ import java.util.Random;
 public class LotteryController {
 
     @Autowired
-    private HttpSession httpSession;
-
-    @Autowired
-    private LotteryListDao lotteryListDao;
-
-    @Autowired
-    private PrizeListDao prizeListDao;
-
-    @Autowired
     private LotteryService lotteryService;
 
     @RequestMapping("/lottery")

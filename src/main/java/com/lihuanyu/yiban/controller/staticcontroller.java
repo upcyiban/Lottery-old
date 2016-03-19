@@ -1,5 +1,6 @@
 package com.lihuanyu.yiban.controller;
 
+import com.lihuanyu.yiban.services.StaticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpSession;
 public class StaticController {
 
     @Autowired
-    private HttpSession httpSession;
+    private StaticService staticService;
 
     @RequestMapping("/about")
     public String showAbout() {
@@ -28,10 +29,6 @@ public class StaticController {
 
     @RequestMapping("/create")
     public String creat(Model model) {
-        String username = (String) httpSession.getAttribute("username");
-        int userid = (int) httpSession.getAttribute("userid");
-        model.addAttribute("username",username);
-        model.addAttribute("userid",userid);
-        return "create";
+        return staticService.giveInfo(model);
     }
 }
