@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.lihuanyu.yiban.config.DevConfig;
 import com.lihuanyu.yiban.model.LotteryList;
 import com.lihuanyu.yiban.model.LotteryListDao;
+import com.lihuanyu.yiban.services.LonginServe;
 import com.lihuanyu.yiban.services.UserLoginService;
 import com.lihuanyu.yiban.session.SessionUser;
 import com.lihuanyu.yiban.util.MCrypt;
@@ -32,28 +33,16 @@ public class LoginController {
     @Autowired
     private LotteryListDao lotteryListDao;
 
+    @Autowired
+    private LonginServe longinServe;
+
     @RequestMapping(value = "/", method = RequestMethod.GET, params = "verify_request")
     public String oauthProcess(String verify_request, Model model) throws Exception {
-        MCrypt mCrypt = new MCrypt();
-        String output = new String(mCrypt.decrypt(verify_request));
-        userLoginService.saveSession(output);
-        if (httpSession.getAttribute("lotteryid")!=null){
-            long lotteryid = (long) httpSession.getAttribute("lotteryid");
-            return "redirect:/lottery?lotteryid"+ lotteryid;
-        }
-        return "redirect:/";
+        return longinServe.dealVerify(verify_request, model);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String testOauth(Model model) {
-        if (httpSession.getAttribute("userid") != null) {
-            Iterable<LotteryList> lotteryList = lotteryListDao.findByIspass(1);
-            model.addAttribute("lotteryLists", lotteryList);
-            String username = (String) httpSession.getAttribute("username");
-            model.addAttribute("username", username);
-            return "index";
-        }
-        return "redirect:https://openapi.yiban.cn/oauth/authorize?client_id=" + DevConfig.client_id + "&redirect_uri=" + DevConfig.redirect_uri;
+        return longinServe.redirectControl(model);
     }
-
 }

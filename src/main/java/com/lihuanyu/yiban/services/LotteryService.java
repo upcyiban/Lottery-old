@@ -6,7 +6,9 @@ import com.lihuanyu.yiban.model.PrizeList;
 import com.lihuanyu.yiban.model.PrizeListDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Random;
@@ -22,6 +24,9 @@ public class LotteryService {
 
     @Autowired
     private LotteryListDao lotteryListDao;
+
+    @Autowired
+    private HttpSession httpSession;
 
     public boolean canLottery(Timestamp lotterytimebegin, Timestamp lotterytimeend, int yibanid, int lotteryid) {
         Timestamp date = new Timestamp(System.currentTimeMillis());
@@ -92,6 +97,48 @@ public class LotteryService {
                 break;
         }
         lotteryListDao.save(lotteryList);
+    }
+
+    public String showLottery(long lotteryid, Model model){
+        if (httpSession.getAttribute("userid") == null || httpSession.getAttribute("username") == null) {
+            httpSession.setAttribute("lotteryid",lotteryid);
+            return "redirect:/";
+        }
+        LotteryList lotteryList = lotteryListDao.findById(lotteryid);
+        model.addAttribute("lottery", lotteryList);
+        Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
+        model.addAttribute("prizeList", prizeList);
+        model.addAttribute("time1",lotteryList.getLotterytimebegin());
+        model.addAttribute("time2",lotteryList.getLotterytimeend());
+        return "lottery";
+    }
+
+
+    public String dealLotteryResult(long id,Model model){
+        int yibanid = (int) httpSession.getAttribute("userid");
+        String yibanname = (String) httpSession.getAttribute("username");
+        LotteryList lotteryList = lotteryListDao.findById(id);
+        if (canLottery(lotteryList.getLotterytimebegin(),lotteryList.getLotterytimeend(),yibanid, (int) id)){
+            //判断是否符合抽奖条件
+            String result = lottery(lotteryList.getPrize1(),lotteryList.getPrize2(),lotteryList.getPrize3(),lotteryList.getPrize4(),lotteryList.getProbability1(),lotteryList.getProbability2(),lotteryList.getProbability3(),lotteryList.getProbability4());
+            //如果符合，进行抽奖
+
+            saveLottery(yibanid, (int) id,yibanname,result);
+            dealLottery((int) id,result);
+            if (result.equals("未中奖")){
+                model.addAttribute("result","可惜没中奖");
+                model.addAttribute("word","还是欢迎您关注参加我们的活动~");
+            }else {
+                model.addAttribute("result", "中奖啦！");
+                model.addAttribute("word", "恭喜您获得" + result);
+            }
+            model.addAttribute("lotteryid", id);
+            return "lotteryresult";
+        }else {
+            model.addAttribute("title","出错了!");
+            model.addAttribute("result","不具备抽奖资格(时间不对或已抽过奖)");
+            return "message";
+        }
     }
 }
 
