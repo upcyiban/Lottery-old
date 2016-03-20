@@ -5,9 +5,9 @@ spring:
     chain:
       enabled: true
   datasource:
-    url: jdbc:mysql://121.42.201.69:3306/yiban_choujiang
-    username: yiban
-    password: yiban
+    url: jdbc:mysql://121.251.255.96:3306/yibantest_lottery
+    username: yibantest
+    password: yibantest
     test-while-idle: true
     validation-query: SELECT 1
   jpa:
