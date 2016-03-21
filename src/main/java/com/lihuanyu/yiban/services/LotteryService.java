@@ -100,17 +100,18 @@ public class LotteryService {
     }
 
     public String showLottery(long lotteryid, Model model){
-        if (httpSession.getAttribute("userid") == null || httpSession.getAttribute("username") == null) {
-            httpSession.setAttribute("lotteryid",lotteryid);
+        if (httpSession.getAttribute("userid") != null) {
+            LotteryList lotteryList = lotteryListDao.findById(lotteryid);
+            model.addAttribute("lottery", lotteryList);
+            Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
+            model.addAttribute("prizeList", prizeList);
+            model.addAttribute("time1",lotteryList.getLotterytimebegin());
+            model.addAttribute("time2",lotteryList.getLotterytimeend());
+            return "lottery";
+        }else {
+            httpSession.setAttribute("lotteryid", lotteryid);
             return "redirect:/";
         }
-        LotteryList lotteryList = lotteryListDao.findById(lotteryid);
-        model.addAttribute("lottery", lotteryList);
-        Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
-        model.addAttribute("prizeList", prizeList);
-        model.addAttribute("time1",lotteryList.getLotterytimebegin());
-        model.addAttribute("time2",lotteryList.getLotterytimeend());
-        return "lottery";
     }
 
 
