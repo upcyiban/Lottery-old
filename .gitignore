@@ -28,3 +28,5 @@ hs_err_pid*
 choujiang.iml
 src/main/java/com/lihuanyu/yiban/config/CustomConfig.java
 src/main/resources/application-production.yml
+src/main/resources/static
+src/main/resources/templates
