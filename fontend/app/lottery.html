@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang=""xmlns="http://www.w3.org/1/xhtml"
+<html class="no-js" lang="" xmlns="http://www.w3.org/1/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
@@ -33,7 +33,8 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -53,9 +54,12 @@
 
   <div class="jumbotron">
     <h2 th:text="${lottery.lotteryname}">测试题目</h2>
-    <p style="font-size: small">抽奖时间:<span th:text="${time1}">2016年3月1日 下午18:40</span> 到 <span th:text="${time2}">2016年3月2日 上午04:30</span></p>
+    <p style="font-size: small">抽奖时间:<span th:text="${time1}">2016年3月1日 下午18:40</span> 到 <span th:text="${time2}">2016年3月2日 上午04:30</span>
+    </p>
     <br/>
-    <p class="lead" th:utext="${#strings.replace(lottery.lotteryintro, newLineChar, '&lt;br /&gt;')}">活动介绍,这段文字应该不会展示,如果你看到了,说明程序出错了</p>
+    <p class="lead lotteryintro" th:utext="${#strings.replace(lottery.lotteryintro, newLineChar, '&lt;br /&gt;')}">测试抽奖！<br/>该抽n奖仅为测试用途，也作为抽奖活动样板。后面是乱打的：大贵雇一个我古月哥很反感idhjg阿萨德刚速度快V看阿萨德刚按施工队打出一个的春节后该的价格。<br/>活动地点：东环301<br/>时间：2016.6.31
+      中午11点半参与活动并领取奖品<br/>奖品详情：<br/>一等奖：啥也没有<br/>二等奖：还是啥也没有<br/>三等奖：还用说么？<br/>四等奖：呵呵哒<br/>中奖概率：<br/>一等奖千分之10。二等奖千分之100。三等奖千分之500。四等奖千分之800。
+    </p>
     <form action="/lotteryresult" method="post">
       <input type="hidden" name="id" th:value="${lottery.id}">
       <input type="submit" class="btn btn-success" value="点此抽奖">
@@ -63,7 +67,7 @@
   </div>
 
   <div class="row marketing">
-      <h3>中奖列表</h3>
+    <h3>中奖列表</h3>
     <table class="table table-striped">
       <thead>
       <tr>
