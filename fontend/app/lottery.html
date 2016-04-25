@@ -55,7 +55,7 @@
     <h2 th:text="${lottery.lotteryname}">测试题目</h2>
     <p style="font-size: small">抽奖时间:<span th:text="${time1}">2016年3月1日 下午18:40</span> 到 <span th:text="${time2}">2016年3月2日 上午04:30</span></p>
     <br/>
-    <p class="lead" th:text="${lottery.lotteryintro}">活动介绍,这段文字应该不会展示,如果你看到了,说明程序出错了</p>
+    <p class="lead" th:utext="${#strings.replace(lottery.lotteryintro, newLineChar, '&lt;br /&gt;')}">活动介绍,这段文字应该不会展示,如果你看到了,说明程序出错了</p>
     <form action="/lotteryresult" method="post">
       <input type="hidden" name="id" th:value="${lottery.id}">
       <input type="submit" class="btn btn-success" value="点此抽奖">

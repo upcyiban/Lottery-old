@@ -104,6 +104,7 @@ public class LotteryService {
             LotteryList lotteryList = lotteryListDao.findById(lotteryid);
             model.addAttribute("lottery", lotteryList);
             Iterable<PrizeList> prizeList = prizeListDao.findByLotteryidAndPrizeNot((int) lotteryid, "未中奖");
+            model.addAttribute("newLineChar", '\n');
             model.addAttribute("prizeList", prizeList);
             model.addAttribute("time1",lotteryList.getLotterytimebegin());
             model.addAttribute("time2",lotteryList.getLotterytimeend());
