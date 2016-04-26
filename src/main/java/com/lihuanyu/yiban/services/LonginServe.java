@@ -31,7 +31,7 @@ public class LonginServe {
         userLoginService.saveSession(output);
         if (httpSession.getAttribute("lotteryid") != null) {
             long lotteryid = (long) httpSession.getAttribute("lotteryid");
-            return "redirect:/lottery?lotteryid" + lotteryid;
+            return "redirect:/lottery?lotteryid=" + lotteryid;
         }
         return "redirect:/";
     }
